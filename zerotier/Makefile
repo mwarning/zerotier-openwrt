@@ -9,7 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
 PKG_VERSION:=1.0.2
+PKG_REV:=045b47852d75c47754e2a2fad678e5f0c91fa7da
 PKG_RELEASE:=1
+
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_URL:=git://github.com/mwarning/ZeroTierOne.git
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
+PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_LICENSE:=GPL-3.0
 
@@ -29,13 +36,8 @@ define Package/zerotier/description
 endef
 
 MAKE_FLAGS += \
-	CFLAGS="-Os -static-libstdc++" \
-	LDFLAGS="-static-libstdc++"
-
-define Build/Prepare
-	mkdir -p $(PKG_BUILD_DIR)
-	$(CP) ./ZeroTierOne/* $(PKG_BUILD_DIR)/
-endef
+	CFLAGS="-Os" \
+	LDFLAGS="-pthread"
 
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
