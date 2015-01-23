@@ -35,10 +35,6 @@ define Package/zerotier/description
 	ZeroTier creates a global provider-independent virtual private cloud network.
 endef
 
-MAKE_FLAGS += \
-	CFLAGS="-Os" \
-	LDFLAGS="-pthread"
-
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/zerotier-one $(1)/usr/bin/
