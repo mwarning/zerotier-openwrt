@@ -35,7 +35,7 @@ start_instance() {
 
 		config_get vl "$s" 'join'
 		for v in $vl; do
-			$ZT_COMMAND -i join '$v'
+			$ZT_COMMAND -q join '$v'
 		done
 	}
 
