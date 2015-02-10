@@ -45,7 +45,7 @@ endef
 #MAKE_FLAGS += LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
 MAKE_FLAGS += \
 	CFLAGS+="-fno-builtin -nostdinc++ -I/usr/uClibc++/include/ -DGCC_HASCLASSVISIBILITY -lpthread -lm -Wall -fPIE -fvisibility=hidden -pthread -DNDEBUG" \
-	LDFLAGS+="-fno-builtin -nostdinc++ -L/usr/uClibc++/lib/  -DGCC_HASCLASSVISIBILITY -lpthread -lm -lc -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lsupc++ -static-libgcc -lc -lgcc -lgcc_eh -lgcc_s"
+	LDFLAGS+="-fno-builtin -nostdinc++ -L/usr/uClibc++/lib/  -DGCC_HASCLASSVISIBILITY -lpthread -lm -lc -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s"
 
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
