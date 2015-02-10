@@ -9,8 +9,8 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
 PKG_VERSION:=1.0.2
-PKG_REV:=e30192d0823451473dbec3371e976a30fdc9d547
-PKG_RELEASE:=2
+PKG_REV:=8f021d8c28e6a52aabc4970dc376c70b61f56a10
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/mwarning/ZeroTierOne.git
@@ -20,7 +20,9 @@ PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_LICENSE:=GPL-3.0
 
-PKG_BUILD_DEPENDS:=libstdcpp
+#libstdc++
+#PKG_BUILD_DEPENDS:=libstdcpp
+PKG_BUILD_DEPENDS:=uclibcxx
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -37,8 +39,11 @@ define Package/zerotier/description
 	ZeroTier creates a global provider-independent virtual private cloud network.
 endef
 
+#libstdc++
+#MAKE_FLAGS += LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
 MAKE_FLAGS += \
-	LDFLAGS+="-static-libgcc -static-libstdc++ -lgcc_s"
+	CFLAGS+="-fno-builtin -nostdinc++ -I/usr/uClibc++/include/ -DGCC_HASCLASSVISIBILITY -lpthread -lm -Wall -fPIE -fvisibility=hidden -pthread -DNDEBUG" \
+	LDFLAGS+="-fno-builtin -nostdinc++ -L/usr/uClibc++/lib/  -DGCC_HASCLASSVISIBILITY -lpthread -lm -lc -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lsupc++ -static-libgcc -lc -lgcc -lgcc_eh -lgcc_s"
 
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
