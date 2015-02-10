@@ -38,7 +38,7 @@ define Package/zerotier/description
 endef
 
 MAKE_FLAGS += \
-	LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
+	LDFLAGS+="-static-libgcc -static-libstdc++ -lgcc_s"
 
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
