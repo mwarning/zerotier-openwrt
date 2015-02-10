@@ -24,6 +24,8 @@ PKG_LICENSE:=GPL-3.0
 #PKG_BUILD_DEPENDS:=libstdcpp
 PKG_BUILD_DEPENDS:=uclibcxx
 
+PKG_BUILD_PARALLEL:=1
+
 include $(INCLUDE_DIR)/package.mk
 
 define Package/zerotier
