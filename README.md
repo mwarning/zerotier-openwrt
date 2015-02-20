@@ -10,7 +10,7 @@ These steps were tested using OpenWRT-"Barrier Breaker" (14.07):
 
 For building OpenWrt on Debian, you need to install these packages:
 <pre>
-apt-get install git subversion g++ libncurses5-dev gawk zlib1g-dev build-essential gettext
+apt-get install git subversion g++ libncurses5-dev gawk zlib1g-dev build-essential gettext unzip file
 </pre>
 
 Now build OpenWrt:
