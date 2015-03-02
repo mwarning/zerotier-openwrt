@@ -32,7 +32,7 @@ define Package/zerotier
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+libpthread +kmod-tun +ip
-  TITLE:=ZeroTier
+  TITLE:=Create flat virtual Ethernet networks of almost unlimited size
   URL:=https://www.zerotier.com
   SUBMENU:=VPN
 endef
