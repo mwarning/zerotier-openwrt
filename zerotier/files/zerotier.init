@@ -2,6 +2,8 @@
 
 START=95
 
+USE_PROCD=1
+
 LIST_SEP="
 "
 ZT_COMMAND=/usr/bin/zerotier-one
@@ -12,28 +14,31 @@ section_enabled() {
 }
 
 start_instance() {
-	local s="$1"
+	local cfg="$1"
 	local udp_port tcp_port
 	local ARGS=""
 
-	section_enabled "$s" || return 1
+	section_enabled "$cfg" || return 1
 
-	config_get_bool udp_port $s 'udp_port'
-	config_get_bool tcp_port $s 'tcp_port'
+	config_get_bool udp_port $cfg 'udp_port'
+	config_get_bool tcp_port $cfg 'tcp_port'
 
 	[ -n "$udp_port" ] && ARGS="$ARGS -p $udp_port"
 	[ -n "$tcp_port" ] && ARGS="$ARGS -t $tcp_port"
 
 	mkdir -p /var/lib/zerotier-one
-	eval service_start "'$ZT_COMMAND'" -d $ARGS
+
+	procd_open_instance
+	procd_set_param command $ZT_COMMAND $ARGS
+	procd_close_instance
 
 	#wait for daemon to be ready
 	sleep 1
 
 	join_cli() {
-		local vl v s="$1"
+		local vl v cfg="$1"
 
-		config_get vl "$s" 'join'
+		config_get vl "$cfg" 'join'
 		for v in $vl; do
 			$ZT_COMMAND -q join '$v'
 		done
@@ -42,17 +47,7 @@ start_instance() {
 	config_foreach join_cli zerotier
 }
 
-stop_instance() {
-	local s="$1"
-	service_stop "$ZT_COMMAND"
-}
-
-start() {
+start_service() {
 	config_load 'zerotier'
 	config_foreach start_instance 'zerotier'
-}
-
-stop() {
-	config_load 'zerotier'
-	config_foreach stop_instance 'zerotier'
 }
