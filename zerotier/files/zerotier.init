@@ -26,13 +26,14 @@ start_instance() {
 	[ -n "$udp_port" ] && ARGS="$ARGS -p$udp_port"
 	[ -n "$tcp_port" ] && ARGS="$ARGS -t$tcp_port"
 
+	mkdir -p /var/lib/zerotier-one/networks.d/
+
 	add_join() {
-		ARGS="$ARGS -j$1"
+		#an (empty) config file will cause ZT to join a network
+		touch /var/lib/zerotier-one/networks.d/$1.conf
 	}
 
 	config_list_foreach $cfg 'join' add_join
-
-	mkdir -p /var/lib/zerotier-one
 
 	procd_open_instance
 	procd_set_param command $ZT_COMMAND $ARGS
