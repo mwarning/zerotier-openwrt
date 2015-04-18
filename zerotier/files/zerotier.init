@@ -15,18 +15,25 @@ section_enabled() {
 
 start_instance() {
 	local cfg="$1"
-	local udp_port tcp_port
+	local port secret
 	local ARGS=""
 
 	section_enabled "$cfg" || return 1
 
-	config_get_bool udp_port $cfg 'udp_port'
-	config_get_bool tcp_port $cfg 'tcp_port'
-
-	[ -n "$udp_port" ] && ARGS="$ARGS -p$udp_port"
-	[ -n "$tcp_port" ] && ARGS="$ARGS -t$tcp_port"
-
 	mkdir -p /var/lib/zerotier-one/networks.d/
+
+	config_get_bool port $cfg 'port'
+	config_get secret $cfg 'secret'
+
+	if [ -n "$port" ]; then
+		ARGS="$ARGS -p$port"
+	fi
+
+	if [ -n "$secret" ]; then
+		echo "$secret" > /var/lib/zerotier-one/identity.secret
+		#make sure there is not previous dentity.public
+		rm -f /var/lib/zerotier-one/identity.public
+	fi
 
 	add_join() {
 		#an (empty) config file will cause ZT to join a network
