@@ -46,11 +46,11 @@ define Package/zerotier/config
 endef
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
-	MAKE_FLAGS += " ZT_DEBUG=1 "
+MAKE_FLAGS += " ZT_DEBUG=1 "
 endif
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_UPDATER),y)
-	MAKE_FLAGS += " ZT_AUTO_UPDATE=1 "
+MAKE_FLAGS += " ZT_AUTO_UPDATE=1 "
 endif
 
 
