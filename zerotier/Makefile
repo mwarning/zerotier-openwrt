@@ -41,10 +41,23 @@ define Package/zerotier/description
 	ZeroTier creates a global provider-independent virtual private cloud network.
 endef
 
+define Package/zerotier/config
+	source "$(SOURCE)/Config.in"
+endef
+
+ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
+	MAKE_FLAGS += " ZT_DEBUG=1"
+endif
+
+ifeq ($(CONFIG_ZEROTIER_ENABLE_UPDATER),y)
+	MAKE_FLAGS += " ZT_AUTO_UPDATE=1"
+endif
+
+
 #libstdc++
 #MAKE_FLAGS += LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
 MAKE_FLAGS += \
-	CFLAGS+="-fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -lpthread -lm -Wall -fPIE -fvisibility=hidden -pthread -DNDEBUG" \
+	CFLAGS+="-fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -lpthread -lm -Wall -fPIE -fvisibility=hidden -pthread" \
 	LDFLAGS+="-fno-builtin -nostdinc++ -L$(STAGING_DIR)/usr/lib/uClibc++ -DGCC_HASCLASSVISIBILITY -lpthread -lm -lc -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s"
 
 define Package/zerotier/install
