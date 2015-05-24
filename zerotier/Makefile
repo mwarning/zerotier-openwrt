@@ -47,6 +47,7 @@ endef
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
 MAKE_FLAGS += " ZT_DEBUG=1 "
+TARGET_CFLAGS += -ggdb3
 endif
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_UPDATER),y)
