@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
-PKG_VERSION:=1.0.3-dev
-PKG_REV:=99a104b9bc34acab361e4b5f3c5d7db9bda6ccb1
-PKG_RELEASE:=8
+PKG_VERSION:=1.0.3
+PKG_REV:=da592c23d477547b15a9bec2b39f476a81b28d45
+PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/mwarning/ZeroTierOne.git
@@ -45,15 +45,14 @@ define Package/zerotier/config
 	source "$(SOURCE)/Config.in"
 endef
 
+ifeq ($(CONFIG_ZEROTIER_ENABLE_NETWORK_CONTROLLER),y)
+MAKE_FLAGS += ZT_ENABLE_NETWORK_CONTROLLER=1
+DEPENDS+=+sqlite
+endif
+
 ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
-MAKE_FLAGS += " ZT_DEBUG=1 "
-TARGET_CFLAGS += -ggdb3
+TARGET_CFLAGS += -DZT_TRACE -ggdb3
 endif
-
-ifeq ($(CONFIG_ZEROTIER_ENABLE_UPDATER),y)
-MAKE_FLAGS += " ZT_AUTO_UPDATE=1 "
-endif
-
 
 #libstdc++
 #MAKE_FLAGS += LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
