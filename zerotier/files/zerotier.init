@@ -29,6 +29,16 @@ start_instance() {
 		ARGS="$ARGS -p$port"
 	fi
 
+	if [ "$secret" = "generate" ]; then
+		local tmp="/tmp/zt.$cfg.secret"
+		zerotier-idtool generate "$tmp" > /dev/null
+		secret="$(cat $tmp)"
+		rm "$tmp"
+
+		uci set zerotier.$cfg.secret="$secret"
+		uci commit zerotier
+	fi
+
 	if [ -n "$secret" ]; then
 		echo "$secret" > /var/lib/zerotier-one/identity.secret
 		#make sure there is not previous dentity.public
