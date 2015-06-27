@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
-PKG_VERSION:=1.0.3
-PKG_REV:=da592c23d477547b15a9bec2b39f476a81b28d45
-PKG_RELEASE:=1
+PKG_VERSION:=1.0.3-dev
+PKG_REV:=3f71afd0fbb2d87a2c9288166299600da51470dc
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/mwarning/ZeroTierOne.git
