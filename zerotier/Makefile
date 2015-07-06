@@ -9,21 +9,18 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
 PKG_VERSION:=1.0.3-dev
-PKG_REV:=3f71afd0fbb2d87a2c9288166299600da51470dc
-PKG_RELEASE:=2
+PKG_REV:=df08c2cfab0b8a1d7e764ecc2dc7278f790976a7
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=git://github.com/mwarning/ZeroTierOne.git
+PKG_SOURCE_URL:=git://github.com/zerotier/ZeroTierOne.git
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
 PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_LICENSE:=GPL-3.0
 
-#libstdc++
-#PKG_BUILD_DEPENDS:=libstdcpp
 PKG_BUILD_DEPENDS:=uclibcxx
-
 PKG_BUILD_PARALLEL:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -51,14 +48,15 @@ DEPENDS+=+sqlite
 endif
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
-TARGET_CFLAGS += -DZT_TRACE -ggdb3
+TARGET_CXXFLAGS += -DZT_TRACE -ggdb3
 endif
 
 #libstdc++
 #MAKE_FLAGS += LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
 MAKE_FLAGS += \
-	CFLAGS+=" -fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -lpthread -lm -Wall -fPIE -fvisibility=hidden -pthread " \
-	LDFLAGS+=" -fno-builtin -nostdinc++ -L$(STAGING_DIR)/usr/lib/uClibc++ -DGCC_HASCLASSVISIBILITY -lpthread -lm -lc -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s "
+	LDFLAGS+=" -L$(STAGING_DIR)/usr/lib/uClibc++ -pthread " \
+	LDLIBS+=" -fno-builtin -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic  -lpthread -lm -lc -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s  -lpthread -lm " \
+	CXXFLAGS+=" -fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -Wall -fPIE -fvisibility=hidden "
 
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
