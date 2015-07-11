@@ -11,4 +11,9 @@ config ZEROTIER_ENABLE_NETWORK_CONTROLLER
 	depends on PACKAGE_zerotier
 	default n
 
+config ZEROTIER_ENABLE_SELFTEST
+	bool "Build a self test program"
+	depends on PACKAGE_zerotier
+	default n
+
 endmenu

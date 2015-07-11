@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=zerotier
 PKG_VERSION:=1.0.3-dev
 PKG_REV:=df08c2cfab0b8a1d7e764ecc2dc7278f790976a7
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/zerotier/ZeroTierOne.git
@@ -51,18 +51,31 @@ ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
 TARGET_CXXFLAGS += -DZT_TRACE -ggdb3
 endif
 
-#libstdc++
-#MAKE_FLAGS += LDFLAGS="-static-libgcc -static-libstdc++ -lgcc_s"
+#"make one"
+ZEROTIER_MAKEOPTS:="one"
+
+ifeq ($(CONFIG_ZEROTIER_ENABLE_SELFTEST),y)
+ZEROTIER_MAKEOPTS += selftest
+endif
+
 MAKE_FLAGS += \
 	LDFLAGS+=" -L$(STAGING_DIR)/usr/lib/uClibc++ -pthread " \
 	LDLIBS+=" -fno-builtin -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic  -lpthread -lm -lc -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s  -lpthread -lm " \
 	CXXFLAGS+=" -fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -Wall -fPIE -fvisibility=hidden "
+
+define Build/Compile
+	$(call Build/Compile/Default,${ZEROTIER_MAKEOPTS})
+endef
 
 define Package/zerotier/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/zerotier-one $(1)/usr/bin/
 	$(LN) zerotier-one $(1)/usr/bin/zerotier-cli
 	$(LN) zerotier-one $(1)/usr/bin//zerotier-idtool
+
+ifeq ($(CONFIG_ZEROTIER_ENABLE_SELFTEST),y)
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/zerotier-selftest $(1)/usr/bin/
+endif
 
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_BIN) files/zerotier.init $(1)/etc/init.d/zerotier
