@@ -51,20 +51,16 @@ ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
 TARGET_CXXFLAGS += -DZT_TRACE -ggdb3
 endif
 
-#"make one"
-ZEROTIER_MAKEOPTS:="one"
-
-ifeq ($(CONFIG_ZEROTIER_ENABLE_SELFTEST),y)
-ZEROTIER_MAKEOPTS += selftest
-endif
-
 MAKE_FLAGS += \
 	LDFLAGS+=" -L$(STAGING_DIR)/usr/lib/uClibc++ -pthread " \
 	LDLIBS+=" -fno-builtin -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic  -lpthread -lm -lc -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s  -lpthread -lm " \
 	CXXFLAGS+=" -fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -Wall -fPIE -fvisibility=hidden "
 
 define Build/Compile
-	$(call Build/Compile/Default,${ZEROTIER_MAKEOPTS})
+	$(call Build/Compile/Default,one)
+ifeq ($(CONFIG_ZEROTIER_ENABLE_SELFTEST),y)
+	$(call Build/Compile/Default,selftest)
+endif
 endef
 
 define Package/zerotier/install
