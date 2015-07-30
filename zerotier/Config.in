@@ -6,6 +6,11 @@ config ZEROTIER_ENABLE_DEBUG
 	depends on PACKAGE_zerotier
 	default n
 
+config ZEROTIER_USE_MINIUPNPC
+	bool "Also use MiniUPnPc to traverse routers"
+	depends on PACKAGE_zerotier
+	default n
+
 config ZEROTIER_ENABLE_NETWORK_CONTROLLER
 	bool "Build with network controller"
 	depends on PACKAGE_zerotier
