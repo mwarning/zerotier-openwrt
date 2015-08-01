@@ -15,7 +15,7 @@ apt-get install git subversion g++ libncurses5-dev gawk zlib1g-dev build-essenti
 
 Now build OpenWrt:
 <pre>
-git clone git://git.openwrt.org/14.07/openwrt.git
+git clone git://git.openwrt.org/15.05/openwrt.git
 cd openwrt
 
 ./scripts/feeds update -a
