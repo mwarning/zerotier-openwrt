@@ -9,7 +9,8 @@ you have to build an OpenWRT image.
 
 For building OpenWrt on Debian, you need to install these packages:
 <pre>
-apt-get install git subversion g++ libncurses5-dev gawk zlib1g-dev build-essential gettext unzip file
+sudo apt-get install subversion g++ zlib1g-dev build-essential git python
+sudo apt-get install libncurses5-dev gawk gettext unzip file libssl-dev wget
 </pre>
 
 Now build OpenWrt:
