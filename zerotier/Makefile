@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=zerotier
 PKG_VERSION:=1.1.4
 PKG_REV:=9cc2733ed877faed30154035f0efe95633e88ac2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/zerotier/ZeroTierOne.git
