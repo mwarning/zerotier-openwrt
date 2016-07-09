@@ -1,0 +1,70 @@
+From f05a574e36c110ddab5912ea7f06f7c41a1c18dd Mon Sep 17 00:00:00 2001
+From: Moritz Warning <moritzwarning@web.de>
+Date: Sat, 9 Jul 2016 17:45:14 +0200
+Subject: [PATCH 1/1] zerotier: fix build
+
+---
+ make-linux.mk          | 30 +++++++++++++++---------------
+ osdep/ManagedRoute.cpp |  2 +-
+ 2 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/make-linux.mk b/make-linux.mk
+index 13b1547..ed944ff 100644
+--- a/make-linux.mk
++++ b/make-linux.mk
+@@ -39,24 +39,24 @@ include objects.mk
+ 
+ # On Linux we auto-detect the presence of some libraries and if present we
+ # link against the system version. This works with our package build images.
+-ifeq ($(wildcard /usr/include/lz4.h),)
++#ifeq ($(wildcard /usr/include/lz4.h),)
+ 	OBJS+=ext/lz4/lz4.o
+-else
+-	LDLIBS+=-llz4
+-	DEFS+=-DZT_USE_SYSTEM_LZ4
+-endif
+-ifeq ($(wildcard /usr/include/http_parser.h),)
++#else
++#	LDLIBS+=-llz4
++#	DEFS+=-DZT_USE_SYSTEM_LZ4 -DLOL
++#endif
++#ifeq ($(wildcard /usr/include/http_parser.h),)
+ 	OBJS+=ext/http-parser/http_parser.o
+-else
+-	LDLIBS+=-lhttp_parser
+-	DEFS+=-DZT_USE_SYSTEM_HTTP_PARSER
+-endif
+-ifeq ($(wildcard /usr/include/json-parser/json.h),)
++#else
++#	LDLIBS+=-lhttp_parser
++#	DEFS+=-DZT_USE_SYSTEM_HTTP_PARSER
++#endif
++#ifeq ($(wildcard /usr/include/json-parser/json.h),)
+ 	OBJS+=ext/json-parser/json.o
+-else
+-	LDLIBS+=-ljsonparser
+-	DEFS+=-DZT_USE_SYSTEM_JSON_PARSER
+-endif
++#else
++#	LDLIBS+=-ljsonparser
++#	DEFS+=-DZT_USE_SYSTEM_JSON_PARSER
++#endif
+ 
+ ifeq ($(ZT_USE_MINIUPNPC),1)
+ 	OBJS+=osdep/PortMapper.o
+diff --git a/osdep/ManagedRoute.cpp b/osdep/ManagedRoute.cpp
+index 5499012..0fdc846 100644
+--- a/osdep/ManagedRoute.cpp
++++ b/osdep/ManagedRoute.cpp
+@@ -33,7 +33,7 @@
+ #ifdef __UNIX_LIKE__
+ #include <unistd.h>
+ #include <sys/param.h>
+-#include <sys/sysctl.h>
++//#include <sys/sysctl.h>
+ #include <sys/socket.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+-- 
+2.9.0
+
