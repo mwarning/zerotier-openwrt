@@ -1,15 +1,14 @@
-From f05a574e36c110ddab5912ea7f06f7c41a1c18dd Mon Sep 17 00:00:00 2001
+From 333bbabc6dfad0553fb63d560ab6442a50cc9e52 Mon Sep 17 00:00:00 2001
 From: Moritz Warning <moritzwarning@web.de>
-Date: Sat, 9 Jul 2016 17:45:14 +0200
-Subject: [PATCH 1/1] zerotier: fix build
+Date: Fri, 22 Jul 2016 23:27:31 +0200
+Subject: [PATCH 2/2] fix build
 
 ---
- make-linux.mk          | 30 +++++++++++++++---------------
- osdep/ManagedRoute.cpp |  2 +-
- 2 files changed, 16 insertions(+), 16 deletions(-)
+ make-linux.mk | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/make-linux.mk b/make-linux.mk
-index 13b1547..ed944ff 100644
+index acc22a6..819e95f 100644
 --- a/make-linux.mk
 +++ b/make-linux.mk
 @@ -39,24 +39,24 @@ include objects.mk
@@ -52,19 +51,6 @@ index 13b1547..ed944ff 100644
  
  ifeq ($(ZT_USE_MINIUPNPC),1)
  	OBJS+=osdep/PortMapper.o
-diff --git a/osdep/ManagedRoute.cpp b/osdep/ManagedRoute.cpp
-index 5499012..0fdc846 100644
---- a/osdep/ManagedRoute.cpp
-+++ b/osdep/ManagedRoute.cpp
-@@ -33,7 +33,7 @@
- #ifdef __UNIX_LIKE__
- #include <unistd.h>
- #include <sys/param.h>
--#include <sys/sysctl.h>
-+//#include <sys/sysctl.h>
- #include <sys/socket.h>
- #include <sys/types.h>
- #include <sys/wait.h>
 -- 
 2.9.0
 
