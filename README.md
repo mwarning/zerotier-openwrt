@@ -23,7 +23,7 @@ A working OpenWRT/LEDE build enviroment is expected (else see below).
 
 Put this line in your feed definition (eg. feeds.conf.default)
 ```
-src-git zerotier https://github.com/muebau/zerotier-openwrt.git
+src-git zerotier https://github.com/mwarning/zerotier-openwrt.git
 ```
 
 Update the feeds
