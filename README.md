@@ -18,6 +18,37 @@ Now start ZeroTier:
 
 ## Compiling from Sources
 
+### Feed
+A working OpenWRT/LEDE build enviroment is expected (else see below).
+
+Put this line in your feed definition (eg. feeds.conf.default)
+```
+src-git zerotier https://github.com/muebau/zerotier-openwrt.git
+```
+
+Update the feeds
+```
+./scripts/feeds update
+```
+
+Make sure the package is in the feeds now
+```
+./scripts/feeds search zerotier
+```
+
+Install the package
+```
+./scripts/feeds install zerotier
+```
+
+Select and build the package
+```
+make menuconfig
+make
+```
+
+### The other way
+
 To inlcude ZeroTier One into your OpenWRT image or to create
 an .ipk package (equivalent to Debians .deb files),
 you have to build an OpenWRT image.
