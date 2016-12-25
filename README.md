@@ -21,7 +21,7 @@ Now start ZeroTier:
 ### Feed
 A working OpenWRT/LEDE build enviroment is expected (else see below).
 
-Put this line in your feed definition (eg. feeds.conf.default)
+Put this line in your feed definition (e.g. feeds.conf.default)
 ```
 src-git zerotier https://github.com/mwarning/zerotier-openwrt.git
 ```
@@ -31,13 +31,9 @@ Update the feeds
 ./scripts/feeds update
 ```
 
-Make sure the package is in the feeds now
+Update and install the feed
 ```
-./scripts/feeds search zerotier
-```
-
-Install the package
-```
+./scripts/feeds update zerotier
 ./scripts/feeds install zerotier
 ```
 
@@ -46,6 +42,7 @@ Select and build the package
 make menuconfig
 make
 ```
+(Network ---> VPN ---> <*> zerotier)
 
 ### The other way
 
