@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=zerotier
 PKG_VERSION:=1.1.14
 PKG_REV:=ae491c277e6f35d1acbdcbf700e2b834957295ae
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/zerotier/ZeroTierOne.git
@@ -58,7 +58,7 @@ endif
 
 MAKE_FLAGS += \
 	LDFLAGS+=" -L$(STAGING_DIR)/usr/lib/uClibc++ -pthread " \
-	LDLIBS+=" -fno-builtin -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic  -lpthread -lm -lc -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s  -lpthread -lm " \
+	LDLIBS+=" -fno-builtin -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lpthread -lm -lc -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s -lssp_nonshared " \
 	CXXFLAGS+=" -fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -Wall -fPIE -fvisibility=hidden "
 
 define Build/Compile
