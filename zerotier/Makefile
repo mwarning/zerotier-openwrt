@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 PKG_NAME:=zerotier
 PKG_VERSION:=1.1.14
 PKG_REV:=ae491c277e6f35d1acbdcbf700e2b834957295ae
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:=git://github.com/zerotier/ZeroTierOne.git
@@ -28,7 +28,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/zerotier
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+libpthread +kmod-tun +ip
+  DEPENDS:=+libpthread +kmod-tun +ip +ZEROTIER_ENABLE_NETWORK_CONTROLLER:libsqlite3 +ZEROTIER_USE_MINIUPNPC:libminiupnpc +ZEROTIER_USE_MINIUPNPC:libnatpmp
   TITLE:=Create flat virtual Ethernet networks of almost unlimited size
   URL:=https://www.zerotier.com
   SUBMENU:=VPN
@@ -44,12 +44,11 @@ endef
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_NETWORK_CONTROLLER),y)
 MAKE_FLAGS += ZT_ENABLE_NETWORK_CONTROLLER=1
-DEPENDS+=+libsqlite3
+MAKE_FLAGS += LDLIBS+=" -lsqlite3 "
 endif
 
 ifeq ($(CONFIG_ZEROTIER_USE_MINIUPNPC),y)
 MAKE_FLAGS += ZT_USE_MINIUPNPC=1
-DEPENDS+=+libminiupnpc
 endif
 
 ifeq ($(CONFIG_ZEROTIER_ENABLE_DEBUG),y)
