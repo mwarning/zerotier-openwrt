@@ -28,7 +28,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/zerotier
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+libpthread +kmod-tun +ip +ZEROTIER_ENABLE_NETWORK_CONTROLLER:libsqlite3 +ZEROTIER_USE_MINIUPNPC:libminiupnpc +ZEROTIER_USE_MINIUPNPC:libnatpmp
+  DEPENDS:=+libpthread +kmod-tun +ip +ZEROTIER_ENABLE_NETWORK_CONTROLLER:libsqlite3
   TITLE:=Create flat virtual Ethernet networks of almost unlimited size
   URL:=https://www.zerotier.com
   SUBMENU:=VPN

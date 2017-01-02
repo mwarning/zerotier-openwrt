@@ -1,0 +1,41 @@
+Index: zerotier-1.1.14/make-linux.mk
+===================================================================
+--- zerotier-1.1.14.orig/make-linux.mk
++++ zerotier-1.1.14/make-linux.mk
+@@ -63,23 +63,23 @@ ifeq ($(ZT_USE_MINIUPNPC),1)
+ 
+ 	DEFS+=-DZT_USE_MINIUPNPC
+ 
+-	# Auto-detect libminiupnpc at least v2.0
+-	MINIUPNPC_IS_NEW_ENOUGH=$(shell grep -sqr '.*define.*MINIUPNPC_VERSION.*"2.."' /usr/include/miniupnpc/miniupnpc.h && echo 1)
+-	ifeq ($(MINIUPNPC_IS_NEW_ENOUGH),1)
+-		DEFS+=-DZT_USE_SYSTEM_MINIUPNPC
+-		LDLIBS+=-lminiupnpc
+-	else
++#	# Auto-detect libminiupnpc at least v2.0
++#	MINIUPNPC_IS_NEW_ENOUGH=$(shell grep -sqr '.*define.*MINIUPNPC_VERSION.*"2.."' $(STAGING_DIR)/usr/include/miniupnpc/miniupnpc.h && echo 1)
++#	ifeq ($(MINIUPNPC_IS_NEW_ENOUGH),1)
++#		DEFS+=-DZT_USE_SYSTEM_MINIUPNPC
++#		LDLIBS+=-lminiupnpc
++#	else
+ 		DEFS+=-DMINIUPNP_STATICLIB -DMINIUPNPC_SET_SOCKET_TIMEOUT -DMINIUPNPC_GET_SRC_ADDR -D_BSD_SOURCE -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 -DOS_STRING=\"Linux\" -DMINIUPNPC_VERSION_STRING=\"2.0\" -DUPNP_VERSION_STRING=\"UPnP/1.1\" -DENABLE_STRNATPMPERR
+ 		OBJS+=ext/miniupnpc/connecthostport.o ext/miniupnpc/igd_desc_parse.o ext/miniupnpc/minisoap.o ext/miniupnpc/minissdpc.o ext/miniupnpc/miniupnpc.o ext/miniupnpc/miniwget.o ext/miniupnpc/minixml.o ext/miniupnpc/portlistingparse.o ext/miniupnpc/receivedata.o ext/miniupnpc/upnpcommands.o ext/miniupnpc/upnpdev.o ext/miniupnpc/upnperrors.o ext/miniupnpc/upnpreplyparse.o
+-	endif
++#	endif
+ 
+-	# Auto-detect libnatpmp
+-	ifeq ($(wildcard /usr/include/natpmp.h),)
++#	# Auto-detect libnatpmp
++#	ifeq ($(wildcard $(STAGING_DIR)/usr/include/natpmp.h),)
+ 		OBJS+=ext/libnatpmp/natpmp.o ext/libnatpmp/getgateway.o
+-	else
+-		LDLIBS+=-lnatpmp
+-		DEFS+=-DZT_USE_SYSTEM_NATPMP
+-	endif
++#	else
++#		LDLIBS+=-lnatpmp
++#		DEFS+=-DZT_USE_SYSTEM_NATPMP
++#	endif
+ endif
+ 
+ ifeq ($(ZT_ENABLE_NETWORK_CONTROLLER),1)
