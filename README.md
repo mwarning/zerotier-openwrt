@@ -18,29 +18,6 @@ Now start ZeroTier:
 
 ## Compiling from Sources
 
-### Feed
-A working LEDE build enviroment is expected (else see below).
-
-Put this line in your feed definition (e.g. feeds.conf.default)
-```
-src-git zerotier https://github.com/mwarning/zerotier-openwrt.git
-```
-
-Update and install the new feed
-```
-./scripts/feeds update zerotier
-./scripts/feeds install zerotier
-```
-
-Select and build the package
-```
-make menuconfig
-make
-```
-(Network ---> VPN ---> <*> zerotier)
-
-### The other way
-
 To inlcude ZeroTier One into your LEDE image or to create
 an .ipk package (equivalent to Debians .deb files),
 you have to build an LEDE image.
@@ -51,25 +28,54 @@ sudo apt-get install subversion g++ zlib1g-dev build-essential git python
 sudo apt-get install libncurses5-dev gawk gettext unzip file libssl-dev wget
 ```
 
-Now build LEDE:
+Now prepare LEDE:
 ```
 git clone https://git.lede-project.org/source.git lede
 cd lede
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+```
 
+Now you can insert the zerotier package using a package feed or add the package manually.
+
+### Using a package feed
+
+Put this line in your feeds list file (e.g. feeds.conf.default)
+```
+src-git zerotier https://github.com/mwarning/zerotier-openwrt.git
+```
+
+Update and install the new feed
+```
+./scripts/feeds update zerotier
+./scripts/feeds install zerotier
+```
+
+Now continue with the building packages section.
+
+### Add package by hand
+
+```
 git clone https://github.com/mwarning/zerotier-openwrt.git
 cp -rf zerotier-openwrt/zerotier package/
 rm -rf zerotier-openwrt/
+```
 
+Now continue with the building packages section.
+
+### Building Packages
+
+Configure packages:
+
+```
 make defconfig
 make menuconfig
 ```
 
-At this point select the appropiate "Target System" and "Target Profile"
+Now select the appropiate "Target System" and "Target Profile"
 depending on what target chipset/router you want to build for.
-Also mark the ZeroTier package under "Network" => "VPN".
+Also mark the ZeroTier package under Network ---> VPN ---> <*> zerotier.
 
 Now compile/build everything:
 
@@ -77,7 +83,7 @@ Now compile/build everything:
 make
 ```
 
-The images and all *.ipk packages are now inside the bin/ folder.
-You can install the ZeroTier .ipk using "opkg install &lt;ipkg-file&gt;" on the router.
+The images and all *.ipk packages are now inside the bin/ folder, including the zerotier package.
+You can install the ZeroTier .ipk on the target device using "opkg install &lt;ipkg-file&gt;".
 
 For details please check the LEDE documentation.
