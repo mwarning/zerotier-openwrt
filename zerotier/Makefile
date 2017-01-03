@@ -32,6 +32,7 @@ define Package/zerotier
   TITLE:=Create flat virtual Ethernet networks of almost unlimited size
   URL:=https://www.zerotier.com
   SUBMENU:=VPN
+  MAINTAINER:=Moritz Warning <moritzwarning@web.de>
 endef
 
 define Package/zerotier/description
