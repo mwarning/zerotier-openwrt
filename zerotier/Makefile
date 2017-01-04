@@ -1,7 +1,5 @@
 #
-# Copyright (C) 2016 OpenWrt.org
-#
-# This is free software, licensed under the GNU General Public License v3.
+# This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
 
@@ -9,26 +7,24 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
 PKG_VERSION:=1.1.14
-PKG_REV:=ae491c277e6f35d1acbdcbf700e2b834957295ae
 PKG_RELEASE:=4
-
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
-PKG_SOURCE_URL:=git://github.com/zerotier/ZeroTierOne.git
-PKG_SOURCE_PROTO:=git
-PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=$(PKG_REV)
 
 PKG_LICENSE:=GPL-3.0
 
+PKG_SOURCE:=$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=https://github.com/zerotier/ZeroTierOne/archive/
+PKG_SOURCE_SUBDIR:=ZeroTierOne-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_SOURCE_SUBDIR)
+PKG_MD5SUM:=5e381f0864797886b3b3bf20beb49bba
+
 PKG_BUILD_DEPENDS:=uclibcxx
 PKG_BUILD_PARALLEL:=1
-
 include $(INCLUDE_DIR)/package.mk
 
 define Package/zerotier
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+libpthread +kmod-tun +ip +ZEROTIER_ENABLE_NETWORK_CONTROLLER:libsqlite3
+  DEPENDS:=+libpthread +kmod-tun +ip +ZEROTIER_ENABLE_NETWORK_CONTROLLER:libsqlite3 +ZEROTIER_USE_MINIUPNPC:libminiupnpc +ZEROTIER_USE_MINIUPNPC:libnatpmp
   TITLE:=Create flat virtual Ethernet networks of almost unlimited size
   URL:=https://www.zerotier.com
   SUBMENU:=VPN
@@ -57,6 +53,7 @@ TARGET_CXXFLAGS += -DZT_TRACE -ggdb3
 endif
 
 MAKE_FLAGS += \
+	DEFS="" \
 	LDFLAGS+=" -L$(STAGING_DIR)/usr/lib/uClibc++ -pthread " \
 	LDLIBS+=" -fno-builtin -nodefaultlibs -Wl,-Bstatic -luClibc++ -Wl,-Bdynamic -lpthread -lm -lc -lsupc++ -lc -lgcc -lgcc_eh -lgcc_s -lssp_nonshared " \
 	CXXFLAGS+=" -fno-builtin -nostdinc++ -I$(STAGING_DIR)/usr/include/uClibc++ -DGCC_HASCLASSVISIBILITY -Wall -fPIE -fvisibility=hidden "
