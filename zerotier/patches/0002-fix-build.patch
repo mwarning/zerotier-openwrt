@@ -20,8 +20,7 @@ Index: ZeroTierOne-1.1.14/make-linux.mk
  	OBJS+=ext/lz4/lz4.o
  else
  	LDLIBS+=-llz4
--	DEFS+=-DZT_USE_SYSTEM_LZ4
-+	DEFS+=-DZT_USE_SYSTEM_LZ4 -DLOL
+ 	DEFS+=-DZT_USE_SYSTEM_LZ4
  endif
 -ifeq ($(wildcard /usr/include/http_parser.h),)
 +ifeq ($(wildcard $(STAGING_DIR)/usr/include/http_parser.h),)
