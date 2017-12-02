@@ -6,16 +6,6 @@ config ZEROTIER_ENABLE_DEBUG
 	depends on PACKAGE_zerotier
 	default n
 
-config ZEROTIER_USE_MINIUPNPC
-	bool "Build with MiniUPnPc"
-	depends on PACKAGE_zerotier
-	default n
-
-config ZEROTIER_ENABLE_NETWORK_CONTROLLER
-	bool "Build with network controller"
-	depends on PACKAGE_zerotier
-	default n
-
 config ZEROTIER_ENABLE_SELFTEST
 	bool "Build a self test program"
 	depends on PACKAGE_zerotier
