@@ -3,7 +3,7 @@
 *This package has been merged into https://github.com/openwrt/packages and can be selected building OpenWrt/LEDE.*
 
 [ZeroTier One](https://www.zerotier.com) is a programm to create a global provider-independent virtual private cloud.
-This project offers a OpenWrt packages for ZeroTier.
+This project offers OpenWrt packages for ZeroTier.
 
 ## Installing prebuild package
 
@@ -77,7 +77,7 @@ make menuconfig
 
 Now select the appropiate "Target System" and "Target Profile"
 depending on what target chipset/router you want to build for.
-Also mark the ZeroTier package under Network ---> VPN ---> <*> zerotier.
+Also mark the ZeroTier package under Network ---> VPN ---> <\*> zerotier.
 
 Now compile/build everything:
 
@@ -86,6 +86,6 @@ make
 ```
 
 The images and all *.ipk packages are now inside the bin/ folder, including the zerotier package.
-You can install the ZeroTier .ipk on the target device using "opkg install &lt;ipkg-file&gt;".
+You can install the ZeroTier .ipk on the target device using "opkg install \<ipkg-file\>".
 
 For details please check the OpenWrt documentation.
