@@ -3,11 +3,11 @@
 *This package has been merged into https://github.com/openwrt/packages and can be selected building OpenWrt/LEDE.*
 
 [ZeroTier One](https://www.zerotier.com) is a programm to create a global provider-independent virtual private cloud.
-This project offers a LEDE packages for ZeroTier.
+This project offers a OpenWrt packages for ZeroTier.
 
 ## Installing prebuild package
 
-Download the [prebuild package](https://github.com/mwarning/zerotier-openwrt/releases) and copy it onto your LEDE installation, preferably into the /tmp folder.
+Download the [prebuild package](https://github.com/mwarning/zerotier-openwrt/releases) and copy it onto your OpenWrt installation, preferably into the /tmp folder.
 Then install the ipk package file:
 ```
 opkg install zerotier_*.ipk
@@ -20,20 +20,20 @@ Now start ZeroTier:
 
 ## Compiling from Sources
 
-To inlcude ZeroTier One into your LEDE image or to create
+To inlcude ZeroTier One into your OpenWrt image or to create
 an .ipk package (equivalent to Debians .deb files),
-you have to build an LEDE image.
+you have to build an OpenWrt image.
 
-For building LEDE on Debian, you need to install these packages:
+For building OpenWrt on Debian, you need to install these packages:
 ```
 sudo apt-get install subversion g++ zlib1g-dev build-essential git python
 sudo apt-get install libncurses5-dev gawk gettext unzip file libssl-dev wget
 ```
 
-Now prepare LEDE:
+Now prepare OpenWrt:
 ```
-git clone https://git.lede-project.org/source.git lede
-cd lede
+git clone https://github.com/openwrt/openwrt
+cd openwrt
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
@@ -88,4 +88,4 @@ make
 The images and all *.ipk packages are now inside the bin/ folder, including the zerotier package.
 You can install the ZeroTier .ipk on the target device using "opkg install &lt;ipkg-file&gt;".
 
-For details please check the LEDE documentation.
+For details please check the OpenWrt documentation.
