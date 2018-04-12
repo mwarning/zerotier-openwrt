@@ -1,7 +1,8 @@
-From ab8ececbe70f7c83667d6ebb592fc1df17ad26a4 Mon Sep 17 00:00:00 2001
+From e8b097e5a0e62e8c9fdfad0fb3bb39d79fee9b76 Mon Sep 17 00:00:00 2001
 From: Moritz Warning <moritzwarning@web.de>
 Date: Sat, 20 Jan 2018 21:55:52 +0100
-Subject: [PATCH] Revert "Do not serve controller requests until init is done."
+Subject: [PATCH 4/5] Revert "Do not serve controller requests until init is
+ done."
 
 This reverts commit f4feccc6265cc480b84c85f897b225714072d4ec.
 ---
@@ -134,5 +135,5 @@ index beafbaf5..c19112ed 100644
  
  } // namespace ZeroTier
 -- 
-2.15.1
+2.16.3
 

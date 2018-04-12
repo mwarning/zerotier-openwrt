@@ -1,7 +1,16 @@
-Index: ZeroTierOne-1.2.4/ext/json/json.hpp
-===================================================================
---- ZeroTierOne-1.2.4.orig/ext/json/json.hpp
-+++ ZeroTierOne-1.2.4/ext/json/json.hpp
+From 46a714008e89f86ba84eca65c80ee727d51414b2 Mon Sep 17 00:00:00 2001
+From: Moritz Warning <moritzwarning@web.de>
+Date: Thu, 12 Apr 2018 17:11:49 +0200
+Subject: [PATCH 3/5] gcc48
+
+---
+ ext/json/json.hpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ext/json/json.hpp b/ext/json/json.hpp
+index 9d48e7a6..bc5345aa 100644
+--- a/ext/json/json.hpp
++++ b/ext/json/json.hpp
 @@ -64,7 +64,7 @@ SOFTWARE.
      #endif
  #elif defined(__GNUC__)
@@ -11,3 +20,6 @@ Index: ZeroTierOne-1.2.4/ext/json/json.hpp
          #error "unsupported GCC version - see https://github.com/nlohmann/json#supported-compilers"
      #endif
  #endif
+-- 
+2.16.3
+
