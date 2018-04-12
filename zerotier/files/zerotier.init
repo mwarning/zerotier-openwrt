@@ -50,7 +50,7 @@ start_instance() {
 		local sf="/tmp/zt.$cfg.secret"
 
 		zerotier-idtool generate "$sf" > /dev/null
-		[ -f "$sf" ] || return 1
+		[ $? -ne 0 ] && return 1
 
 		secret="$(cat $sf)"
 		rm "$sf"
