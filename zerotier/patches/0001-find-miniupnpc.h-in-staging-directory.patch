@@ -1,7 +1,7 @@
 From 58aa0c46860bc1700d3277222a9d5ddf37721d65 Mon Sep 17 00:00:00 2001
 From: Moritz Warning <moritzwarning@web.de>
 Date: Mon, 23 Apr 2018 22:12:31 +0200
-Subject: [PATCH] find miniupnpc.h in staging directory
+Subject: [PATCH 1/2] find miniupnpc.h in staging directory
 
 ---
  make-linux.mk | 4 ++--
