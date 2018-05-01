@@ -1,17 +1,17 @@
-From dacdb368a5a147e0f4f618e66423923bf301a5c2 Mon Sep 17 00:00:00 2001
+From bfb1a652dbf897dc065d2a1414296eb145a2224b Mon Sep 17 00:00:00 2001
 From: Moritz Warning <moritzwarning@web.de>
 Date: Mon, 23 Apr 2018 22:31:03 +0200
-Subject: [PATCH 2/2] remove -march=armv5
+Subject: [PATCH 3/3] remove -march=armv5
 
 ---
  make-linux.mk | 8 ++++----
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/make-linux.mk b/make-linux.mk
-index 5b271b0a..31ec4dcb 100644
+index add1d3ae..49e14f70 100644
 --- a/make-linux.mk
 +++ b/make-linux.mk
-@@ -231,12 +231,12 @@ endif
+@@ -229,12 +229,12 @@ endif
  # ARM32 hell -- use conservative CFLAGS
  ifeq ($(ZT_ARCHITECTURE),3)
  	ifeq ($(shell if [ -e /usr/bin/dpkg ]; then dpkg --print-architecture; fi),armel)
@@ -29,5 +29,5 @@ index 5b271b0a..31ec4dcb 100644
  endif
  
 -- 
-2.16.3
+2.17.0
 

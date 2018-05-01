@@ -6,7 +6,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=zerotier
-PKG_VERSION:=1.2.6
+PKG_VERSION:=1.2.8
 PKG_RELEASE:=1
 
 PKG_LICENSE:=GPL-3.0
