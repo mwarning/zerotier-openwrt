@@ -1,7 +1,7 @@
 From 7cfe751128d412a9b780ba5e4cb11908fc71cd3d Mon Sep 17 00:00:00 2001
 From: Moritz Warning <moritzwarning@web.de>
 Date: Mon, 30 Apr 2018 16:14:30 +0200
-Subject: [PATCH 2/3] remove -pie
+Subject: [PATCH 2/4] remove -pie
 
 fixes relocation "against `a local symbol' can not be used
 when making a shared object; recompile with -fPIC" error
