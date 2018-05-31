@@ -86,8 +86,8 @@ Now compile/build everything:
 make
 ```
 
-The images and all *.ipk packages are now inside the bin/ folder, including the zerotier package.
-You can install the ZeroTier .ipk on the target device using "opkg install \<ipkg-file\>".
+The images and all \*.ipk packages are now inside the bin/ folder, including the zerotier package.
+You can install the ZeroTier .ipk on the target device using `opkg install <ipkg-file>`.
 
 For details please check the OpenWrt documentation.
 
