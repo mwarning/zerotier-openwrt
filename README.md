@@ -98,26 +98,26 @@ For a release, it is useful the build packages at a bulk for multiple targets:
 ```
 #!/bin/sh
 
-targets='
-	CONFIG_TARGET_arm64=y
-	CONFIG_TARGET_ath25=y
-'
+# dumpinfo.pl is used to get all targets configurations:
+# https://git.openwrt.org/?p=buildbot.git;a=blob;f=phase1/dumpinfo.pl
 
-for target in $targets; do
-	echo "$target" > .config
-	echo "CONFIG_PACKAGE_zerotier=y" >> .config
+./dumpinfo.pl architectures | while read pkgarch target1 rest; do
+  echo "CONFIG_TARGET_${target1%/*}=y" > .config
+  echo "CONFIG_TARGET_${target1%/*}_${target1#*/}=y" >> .config
+  echo "CONFIG_PACKAGE_example1=y" >> .config
 
-	# Debug output
-	echo "Build: $target"
+  # Debug output
+  echo "pkgarch: $pkgarch, target1: $target1"
 
-	# Build toolchain and package
-	make defconfig
-	make tools/install
-	make toolchain/install
-	make package/zerotier/{clean,compile} V=s
+  make defconfig
+  make -j4 tools/install
+  make -j4 toolchain/install
 
-	# Free space
-	rm -rf build_dir/target-*
-	rm -rf build_dir/toolchain-*
+  # Build package
+  make package/zerotier/{clean,compile}
+
+  # Free space (optional)
+  rm -rf build_dir/target-*
+  rm -rf build_dir/toolchain-*
 done
 ```
