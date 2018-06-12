@@ -7,20 +7,10 @@ USE_PROCD=1
 PROG=/usr/bin/zerotier-one
 CONFIG_PATH=/var/lib/zerotier-one
 
-section_enabled() {
-	config_get_bool enabled "$1" 'enabled' 0
-	[ $enabled -gt 0 ]
-}
-
 start_instance() {
 	local cfg="$1"
 	local port secret config_path
 	local ARGS=""
-
-	if ! section_enabled "$cfg"; then
-		echo "disabled in /etc/config/zerotier"
-		return 1
-	fi
 
 	config_get config_path $cfg 'config_path'
 	config_get_bool port $cfg 'port'
