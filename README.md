@@ -1,6 +1,6 @@
 # ZeroTier-OpenWrt
 
-*This package has been merged into https://github.com/openwrt/packages and can be selected building OpenWrt/LEDE.*
+*ZeroTier has been merged into the official package repository and can be selected using the opkg package management tool.*
 
 [ZeroTier One](https://www.zerotier.com) is a programm to create a global provider-independent virtual private cloud.
 This project offers OpenWrt packages for ZeroTier.
