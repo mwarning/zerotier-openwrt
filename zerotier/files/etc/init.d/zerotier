@@ -51,7 +51,7 @@ start_instance() {
 		args="$args -p${port}"
 	fi
 
-	if [ "$secret" = "generate" ]; then
+	if [ -z "$secret" ]; then
 		echo "Generate secret - please wait..."
 		local sf="/tmp/zt.$cfg.secret"
 
