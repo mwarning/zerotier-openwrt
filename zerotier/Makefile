@@ -66,10 +66,7 @@ ifeq ($(CONFIG_ZEROTIER_ENABLE_SELFTEST),y)
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/zerotier-selftest $(1)/usr/bin/
 endif
 
-	$(INSTALL_DIR) $(1)/etc/init.d/
-	$(INSTALL_BIN) files/zerotier.init $(1)/etc/init.d/zerotier
-	$(INSTALL_DIR) $(1)/etc/config
-	$(INSTALL_CONF) files/zerotier.config $(1)/etc/config/zerotier
+	$(CP) ./files/* $(1)/
 endef
 
 $(eval $(call BuildPackage,zerotier))
