@@ -7,7 +7,7 @@ config zerotier sample_config
 
 	#option port '9993'
 
-	# Generate secret on first start
+	# a secret will be generated on first start (if not set)
 	option secret ''
 
 	# Join a public network called Earth
