@@ -54,7 +54,7 @@ endef
 
 # Make binary smaller
 TARGET_CFLAGS += -ffunction-sections -fdata-sections
-TARGET_LDFLAGS += -Wl,--gc-sections
+TARGET_LDFLAGS += -Wl,--gc-sections,--as-needed
 
 define Package/zerotier/conffiles
 /etc/config/zerotier
