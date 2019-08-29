@@ -10,6 +10,9 @@ config zerotier sample_config
 	# Generate secret on first start
 	option secret ''
 
+	# Hold the JSON string of local.conf.
+	option local_conf ''
+
 	# Join a public network called Earth
 	list join '8056c2e21c000001'
 	#list join '<other_network>'
