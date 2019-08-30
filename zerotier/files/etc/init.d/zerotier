@@ -25,6 +25,7 @@ start_instance() {
 	config_get config_path $cfg 'config_path'
 	config_get port $cfg 'port'
 	config_get secret $cfg 'secret'
+	config_get local_conf $cfg 'local_conf'
 
 	path=${CONFIG_PATH}_$cfg
 
@@ -69,6 +70,10 @@ start_instance() {
 		echo "$secret" > $path/identity.secret
 		# make sure there is not previous identity.public
 		rm -f $path/identity.public
+	fi
+
+	if [ -n "$local_conf" ]; then
+		echo "$local_conf" > $path/local.conf
 	fi
 
 	add_join() {
