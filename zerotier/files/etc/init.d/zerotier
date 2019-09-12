@@ -14,7 +14,7 @@ section_enabled() {
 
 start_instance() {
 	local cfg="$1"
-	local port secret config_path path
+	local port secret config_path local_conf path
 	local args=""
 
 	if ! section_enabled "$cfg"; then
@@ -38,6 +38,9 @@ start_instance() {
 			echo "ZeroTier config_path does not exist: $config_path" 1>&2
 			return
 		fi
+
+		# ensure that the symlink target exists
+		mkdir -p $(dirname $path)
 
 		ln -s $config_path $path
 	fi
@@ -72,8 +75,8 @@ start_instance() {
 		rm -f $path/identity.public
 	fi
 
-	if [ -n "$local_conf" ]; then
-		echo "$local_conf" > $path/local.conf
+	if [ -f "$local_conf" ]; then
+		ln -s "$local_conf" $path/local.conf
 	fi
 
 	add_join() {

@@ -7,11 +7,11 @@ config zerotier sample_config
 
 	#option port '9993'
 
+	# path to the local.conf
+	#option local_conf '/etc/zerotier.conf'
+
 	# Generate secret on first start
 	option secret ''
-
-	# Hold the JSON string of local.conf.
-	option local_conf ''
 
 	# Join a public network called Earth
 	list join '8056c2e21c000001'
