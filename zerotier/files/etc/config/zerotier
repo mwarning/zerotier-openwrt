@@ -1,5 +1,5 @@
 
-config zerotier sample_config
+config zerotier
 	option enabled 0
 
 	# persistent configuration folder (for ZT controller mode)
@@ -13,6 +13,11 @@ config zerotier sample_config
 	# Generate secret on first start
 	option secret ''
 
-	# Join a public network called Earth
-	list join '8056c2e21c000001'
+	# join networks on startup
+	#list join '8056c2e21c000001'
 	#list join '<other_network>'
+
+# for /etc/init.d/zerotier join|leave earth
+config network 'earth'
+	option id '8056c2e21c000001'
+	option join_at_startup 1
