@@ -89,8 +89,8 @@ start_instance() {
 		# patched feature for orbit op
 		local EXPECTED_COLON=$(echo $1 | cut -c17)
 		if [ "$EXPECTED_COLON" = ":" ]; then
-      local WORLD_ID=$(echo $1 | cut -c 1-16)
-      local ROOT_ID=$(echo $1 | cut -c 18-)
+			local WORLD_ID=$(echo $1 | cut -c 1-16)
+			local ROOT_ID=$(echo $1 | cut -c 18-)
 			echo $ROOT_ID >> $path/moons.d/$WORLD_ID.moon
 		fi
 	}
