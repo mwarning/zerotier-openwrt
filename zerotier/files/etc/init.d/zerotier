@@ -46,6 +46,7 @@ start_instance() {
 	fi
 
 	mkdir -p $path/networks.d
+	mkdir -p $path/moons.d
 
 	# link latest default config path to latest config path
 	rm -f $CONFIG_PATH
@@ -84,7 +85,18 @@ start_instance() {
 		touch $path/networks.d/$1.conf
 	}
 
+	add_orbit() {
+		# patched feature for orbit op
+		local EXPECTED_COLON=$(echo $1 | cut -c17)
+		if [ "$EXPECTED_COLON" = ":" ]; then
+      local WORLD_ID=$(echo $1 | cut -c 1-16)
+      local ROOT_ID=$(echo $1 | cut -c 18-)
+			echo $ROOT_ID >> $path/moons.d/$WORLD_ID.moon
+		fi
+	}
+
 	config_list_foreach $cfg 'join' add_join
+	config_list_foreach $cfg 'orbit' add_orbit
 
 	procd_open_instance
 	procd_set_param command $PROG $args $path
