@@ -35,8 +35,8 @@ start_instance() {
 	# Create link from CONFIG_PATH to config_path
 	if [ -n "$config_path" -a "$config_path" != "$path" ]; then
 		if [ ! -d "$config_path" ]; then
-			echo "ZeroTier config_path does not exist: $config_path" 1>&2
-			return
+			echo "ZeroTier config_path does not exist: $config_path , create it now" 1>&2
+			mkdir $config_path
 		fi
 
 		# ensure that the symlink target exists

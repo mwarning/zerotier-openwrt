@@ -2,7 +2,7 @@
 config zerotier sample_config
 	option enabled 0
 
-	# persistent configuration folder (for ZT controller mode)
+	# persistent configuration folder (for ZT controller mode, or to keep moons orbited)
 	#option config_path '/etc/zerotier'
 
 	#option port '9993'
