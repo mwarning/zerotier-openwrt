@@ -4,6 +4,8 @@ config zerotier sample_config
 
 	# persistent configuration folder (for ZT controller mode)
 	#option config_path '/etc/zerotier'
+	# copy the configuration folder, instead of making a symlink, if set to 1
+	#option copy_config_path '0'
 
 	#option port '9993'
 
