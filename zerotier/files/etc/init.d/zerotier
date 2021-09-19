@@ -14,7 +14,7 @@ section_enabled() {
 
 start_instance() {
 	local cfg="$1"
-	local port secret config_path local_conf path
+	local port secret config_path local_conf copy_config_path path
 	local args=""
 
 	if ! section_enabled "$cfg"; then
@@ -48,7 +48,6 @@ start_instance() {
 		else
 			ln -s $config_path $path
 		fi
-		
 	fi
 
 	mkdir -p $path/networks.d
