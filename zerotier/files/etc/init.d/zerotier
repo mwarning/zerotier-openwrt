@@ -43,7 +43,7 @@ start_instance() {
 		# ensure that the target exists
 		mkdir -p $(dirname $path)
 
-		if [ $copy_config_path -eq 1 ]; then
+		if [ "$copy_config_path" = "1" ]; then
 			cp -r $config_path $path
 		else
 			ln -s $config_path $path
@@ -94,6 +94,7 @@ start_instance() {
 	procd_open_instance
 	procd_set_param command $PROG $args $path
 	procd_set_param stderr 1
+	procd_set_param respawn
 	procd_close_instance
 }
 
