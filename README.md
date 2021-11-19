@@ -106,7 +106,7 @@ For a release, it is useful the build packages at a bulk for multiple targets:
 #!/bin/sh
 
 # dump-target-info.pl is used to get all targets configurations:
-# https://git.openwrt.org/?p=openwrt/openwrt.git;a=blob;f=scripts/dump-target-info.pl;
+# https://git.openwrt.org/?p=openwrt/openwrt.git;a=blob;f=scripts/dump-target-info.pl
 
 ./scripts/dump-target-info.pl architectures | while read pkgarch target1 rest; do
   echo "CONFIG_TARGET_${target1%/*}=y" > .config
