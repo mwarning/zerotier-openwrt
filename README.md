@@ -105,10 +105,10 @@ For a release, it is useful the build packages at a bulk for multiple targets:
 ```
 #!/bin/sh
 
-# dumpinfo.pl is used to get all targets configurations:
-# https://git.openwrt.org/?p=buildbot.git;a=blob;f=phase1/dumpinfo.pl
+# dump-target-info.pl is used to get all targets configurations:
+# https://git.openwrt.org/?p=openwrt/openwrt.git;a=blob;f=scripts/dump-target-info.pl
 
-./dumpinfo.pl architectures | while read pkgarch target1 rest; do
+./scripts/dump-target-info.pl architectures | while read pkgarch target1 rest; do
   echo "CONFIG_TARGET_${target1%/*}=y" > .config
   echo "CONFIG_TARGET_${target1%/*}_${target1#*/}=y" >> .config
   echo "CONFIG_PACKAGE_example1=y" >> .config
