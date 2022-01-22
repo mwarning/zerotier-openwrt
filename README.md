@@ -1,6 +1,6 @@
 # ZeroTier-OpenWrt
 
-*ZeroTier has been merged into the official package repository and can be selected using the opkg package management tool.*
+*ZeroTier has been merged into the [official package repository](https://openwrt.org/packages/pkgdata/zerotier) and can be selected using the opkg package management tool.*
 
 [ZeroTier One](https://www.zerotier.com) is a program to create a global provider-independent virtual private cloud.
 This project offers OpenWrt packages for ZeroTier.
