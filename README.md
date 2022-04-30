@@ -15,7 +15,14 @@ Then install the ipk package file:
 opkg install zerotier_*.ipk
 ```
 
-Now start ZeroTier:
+Now enable ZeroTier:
+
+```
+uci set zerotier.sample_config.enabled='1'
+uci commit zerotier
+```
+
+Now start ZeroTier
 
 ```
 /etc/init.d/zerotier start
@@ -44,13 +51,13 @@ cd openwrt
 ./scripts/feeds install -a
 ```
 
-Now you can insert the zerotier package using a package feed or add the package manually.
+Now you can insert the zerotier package using a package feed (see `Add package by feed`) or add the package manually (see `Add package by hand`).
 
 ### Add package by feed
 
 A feed is the standard way packages are made available to the OpenWrt build system.
 
-Put this line in your feeds list file (e.g. feeds.conf.default)
+Put this line in your feeds list file (e.g. `feeds.conf`, or `feeds.conf.default`)
 
 ```
 src-git zerotier https://github.com/mwarning/zerotier-openwrt.git
@@ -63,7 +70,7 @@ Update and install the new feed
 ./scripts/feeds install zerotier
 ```
 
-Now continue with the building packages section.
+Now continue with the building packages section (see `Building Packages`).
 
 ### Add package by hand
 
@@ -73,7 +80,7 @@ cp -rf zerotier-openwrt/zerotier package/
 rm -rf zerotier-openwrt/
 ```
 
-Now continue with the building packages section.
+Now continue with the building packages section (see `Building Packages`).
 
 ### Building Packages
 
@@ -90,10 +97,10 @@ Also mark the ZeroTier package under Network ---> VPN ---> <\*> zerotier.
 Now compile/build everything:
 
 ```
-make
+make -j8
 ```
 
-The images and all \*.ipk packages are now inside the bin/ folder, including the zerotier package.
+The images and all \*.ipk packages are now inside the `bin/` folder, including the zerotier package.
 You can install the ZeroTier .ipk on the target device using `opkg install <ipkg-file>`.
 
 For details please check the OpenWrt documentation.
