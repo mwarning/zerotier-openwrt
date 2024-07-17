@@ -14,7 +14,7 @@ section_enabled() {
 
 start_instance() {
 	local cfg="$1"
-	local port secret config_path local_conf copy_config_path path
+	local port secret config_path local_conf copy_config_path path allow_managed allow_global allow_default allow_dns
 	local args=""
 
 	if ! section_enabled "$cfg"; then
@@ -27,6 +27,10 @@ start_instance() {
 	config_get secret $cfg 'secret'
 	config_get local_conf $cfg 'local_conf'
 	config_get_bool copy_config_path $cfg 'copy_config_path' 0
+	config_get allow_managed $cfg 'allowManaged'
+	config_get allow_global $cfg 'allowGlobal'
+	config_get allow_default $cfg 'allowDefault'
+	config_get allow_dns $cfg 'allowDNS'
 
 	path=${CONFIG_PATH}_$cfg
 
@@ -87,6 +91,20 @@ start_instance() {
 	add_join() {
 		# an (empty) config file will cause ZT to join a network
 		touch $path/networks.d/$1.conf
+
+		# create a corresponding .local.conf file if any of it's settings exist.
+                if [ $allow_managed ]; then
+			echo "allowManaged=$allow_managed" >> $path/networks.d/$1.local.conf
+		fi
+                if [ $allow_global ]; then
+			echo "allowGlobal=$allow_global" >> $path/networks.d/$1.local.conf
+		fi
+                if [ $allow_default ]; then
+			echo "allowDefault=$allow_default" >> $path/networks.d/$1.local.conf
+		fi
+                if [ $allow_dns ]; then
+			echo "allowDNS=$allow_dns" >> $path/networks.d/$1.local.conf
+		fi
 	}
 
 	config_list_foreach $cfg 'join' add_join
