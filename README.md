@@ -18,7 +18,7 @@ opkg install zerotier_*.ipk
 Now enable ZeroTier:
 
 ```
-uci set zerotier.sample_config.enabled='1'
+uci set zerotier.global.enabled='1'
 uci commit zerotier
 ```
 
