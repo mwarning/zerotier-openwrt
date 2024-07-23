@@ -92,19 +92,20 @@ start_instance() {
 		# an (empty) config file will cause ZT to join a network
 		touch $path/networks.d/$1.conf
 
-		# create a corresponding .local.conf file if any of it's settings exist.
-                if [ $allow_managed ]; then
-			echo "allowManaged=$allow_managed" >> $path/networks.d/$1.local.conf
-		fi
-                if [ $allow_global ]; then
-			echo "allowGlobal=$allow_global" >> $path/networks.d/$1.local.conf
-		fi
-                if [ $allow_default ]; then
-			echo "allowDefault=$allow_default" >> $path/networks.d/$1.local.conf
-		fi
-                if [ $allow_dns ]; then
-			echo "allowDNS=$allow_dns" >> $path/networks.d/$1.local.conf
-		fi
+                # create a corresponding .local.conf file if any of it's settings exist.
+                if [ $allow_managed ] && [ -n $allow_managed ]; then
+                        echo "allowManaged=$allow_managed" >> $path/networks.d/$1.local.conf
+                fi
+                if [ $allow_global ] && [ -n allow_managed ]; then
+                        echo "allowGlobal=$allow_global" >> $path/networks.d/$1.local.conf
+                fi
+                if [ $allow_default ] && [ allow_default ]; then
+                        echo "allowDefault=$allow_default" >> $path/networks.d/$1.local.conf
+                fi
+                if [ $allow_dns ] && [ -n allowd_dns ]; then
+                        echo "allowDNS=$allow_dns" >> $path/networks.d/$1.local.conf
+                fi
+
 	}
 
 	config_list_foreach $cfg 'join' add_join
