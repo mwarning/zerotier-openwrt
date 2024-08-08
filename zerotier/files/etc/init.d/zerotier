@@ -14,7 +14,7 @@ section_enabled() {
 
 start_instance() {
 	local cfg="$1"
-	local port secret config_path local_conf copy_config_path path allow_managed allow_global allow_default allow_dns
+	local port secret config_path local_conf copy_config_path path
 	local args=""
 
 	if ! section_enabled "$cfg"; then
@@ -84,34 +84,30 @@ start_instance() {
 		ln -s "$local_conf" $path/local.conf
 	fi
 
+	add_join_local() {
+
+		# split the parameters into individual lines for easier parsing.
+		# we just need the value of what the specific parameter equels to.
+
+		local params=$( echo "$1" | cut -d ',' -f 2-)
+
+		local allow_val=$( echo "$params" | tr ',' '\n' | grep -w "$2" | sed 's/^.*=//' )
+                if [ $allow_val ] && [ -n allow_val ]; then
+                        echo "$2=$allow_val" >> $path/networks.d/$ZTnetwork.local.conf
+                fi
+	}
+
 	add_join() {
 		# an (empty) config file will cause ZT to join a network
 
-		ZTnetwork=$(echo "$1" | cut -d ',' -f 1 )
-		PARAMS=$( echo "$1" | cut -d ',' -f 2-6)
+		local ZTnetwork=$(echo "$1" | cut -d ',' -f 1 )
 
 		touch $path/networks.d/$ZTnetwork.conf
 
-		# split the paramters into individual lines for easier parsing.
-		# we just need the value of what the specific paramter equels to.
-		allow_managed=$( echo "$PARAMS" | tr ',' '\n' | grep -w "allowManaged" | sed 's/^.*=//' )
-		allow_glabal=$( echo "$PARAMS" | tr ',' '\n' | grep -w "allowGlobal" | sed 's/^.*=//' )
-		allow_default=$( echo "$PARAMS" | tr ',' '\n' | grep -w "allowDefault" | sed 's/^.*=//' )
-		allow_dns=$( echo "$PARAMS" | tr ',' '\n' | grep -w "allowDNS" | sed 's/^.*=//' )
-
-                # create a corresponding .local.conf file if any of it's settings exist.
-                if [ $allow_managed ] && [ -n $allow_managed ]; then
-                        echo "allowManaged=$allow_managed" >> $path/networks.d/$ZTnetwork.local.conf
-                fi
-                if [ $allow_global ] && [ -n allow_managed ]; then
-                        echo "allowGlobal=$allow_global" >> $path/networks.d/$ZTnetwork.local.conf
-                fi
-                if [ $allow_default ] && [ allow_default ]; then
-                        echo "allowDefault=$allow_default" >> $path/networks.d/$ZTnetwork.local.conf
-                fi
-                if [ $allow_dns ] && [ -n allowd_dns ]; then
-                        echo "allowDNS=$allow_dns" >> $path/networks.d/$ZTnetwork.local.conf
-                fi
+		add_join_local $1 "allowManaged"
+		add_join_local $1 "allowGlobal"
+		add_join_local $1 "allowDefault"
+		add_join_local $1 "allowDNS"
 	}
 
 	config_list_foreach $cfg 'join' add_join
