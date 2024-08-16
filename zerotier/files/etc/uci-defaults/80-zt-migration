@@ -1,0 +1,17 @@
+# Convert the join list into networks
+nets=$(uci get zerotier.@zerotier[0].join)
+for net in ${nets}; do
+  sid=$(uci add zerotier network)
+  uci set zerotier.${sid}.id=${net}
+done
+uci delete zerotier.@zerotier[0].join
+
+# Rename local conf (only if defined)
+uci rename zerotier.@zerotier[0].local_conf='local_conf_path' \
+ > /dev/null 2>&1 || true
+
+# Rename configuration to default
+uci rename zerotier.@zerotier[0]='default'
+
+# Commit all changes
+uci commit
