@@ -14,4 +14,4 @@ uci rename zerotier.@zerotier[0].local_conf='local_conf_path' \
 uci rename zerotier.@zerotier[0]='default'
 
 # Commit all changes
-uci commit
+uci commit zerotier
