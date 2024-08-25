@@ -47,7 +47,7 @@ start_service() {
 	rm -rf "${CONFIG_PATH}"
 
 	# Create link or copy files from config_path to CONFIG_PATH
-	if [ -n "${config_path}" -a "${config_path}" != "${path}" ]; then
+	if [ -n "${config_path}" ]; then
 		if [ ! -d "${config_path}" ]; then
 			echo "ZeroTier config_path does not exist: ${config_path}" 1>&2
 			return
@@ -59,6 +59,9 @@ start_service() {
 			ln -s "${config_path}" "${CONFIG_PATH}"
 		fi
 	fi
+
+	mkdir -p "${CONFIG_PATH}"/networks.d
+	config_foreach join_network network
 
 	if [ -f "${local_conf_path}" ]; then
 		ln -s "${local_conf_path}" "${CONFIG_PATH}"/local.conf
@@ -82,9 +85,6 @@ start_service() {
 		# make sure there is not previous identity.public
 		rm -f "${CONFIG_PATH}"/identity.public
 	fi
-
-	mkdir -p "${CONFIG_PATH}"/networks.d
-	config_foreach join_network network
 
 	procd_open_instance
 	procd_set_param command ${PROG} ${args}
