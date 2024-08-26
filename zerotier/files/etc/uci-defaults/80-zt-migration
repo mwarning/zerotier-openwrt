@@ -3,6 +3,7 @@ nets=$(uci get zerotier.@zerotier[0].join)
 for net in ${nets}; do
   sid=$(uci add zerotier network)
   uci set zerotier.${sid}.id=${net}
+  uci set zerotier.${sid}.enabled=1
 done
 uci delete zerotier.@zerotier[0].join
 
@@ -10,8 +11,8 @@ uci delete zerotier.@zerotier[0].join
 uci rename zerotier.@zerotier[0].local_conf='local_conf_path' \
  > /dev/null 2>&1 || true
 
-# Rename configuration to default
-uci rename zerotier.@zerotier[0]='default'
+# Rename configuration to global
+uci rename zerotier.@zerotier[0]='global'
 
 # Commit all changes
 uci commit zerotier
