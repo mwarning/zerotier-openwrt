@@ -9,15 +9,16 @@ CONFIG_PATH=/var/lib/zerotier-one
 
 join_network() {
 	local section="${1}"
-	local id allow_managed allow_global allow_default allow_dns
+	local id enabled allow_managed allow_global allow_default allow_dns
 
 	config_get id "${section}" 'id'
+	config_get_bool enabled "${section}" 'enabled' 1
 	config_get_bool allow_managed "${section}" 'allow_managed' 1
 	config_get_bool allow_global "${section}" 'allow_global' 0
 	config_get_bool allow_default "${section}" 'allow_default' 0
 	config_get_bool allow_dns "${section}" 'allow_dns' 0
 
-	if [ -n "${id}" ]; then
+	if [ -n "${id}" -a ${enabled} -eq 1 ]; then
 		# an (empty) config file will cause ZT to join a network
 		touch "${CONFIG_PATH}"/networks.d/"${id}".conf
 		echo "allowManaged=${allow_managed}" > "${CONFIG_PATH}"/networks.d/"${id}".local.conf
@@ -41,6 +42,7 @@ start_service() {
 
 	if [ ${enabled} -eq 0 ]; then
 		echo "disabled in /etc/config/zerotier"
+		return
 	fi
 
 	# Remove existing link or folder
