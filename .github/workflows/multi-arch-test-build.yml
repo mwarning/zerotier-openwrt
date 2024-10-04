@@ -1,0 +1,41 @@
+name: Test Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: ${{ matrix.arch }} build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch:
+          - x86_64
+          - mips_24kc
+          - mipsel_24kc
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        uses: openwrt/gh-action-sdk@main
+        env:
+          ARCH: ${{ matrix.arch }}
+          PACKAGES: zerotier
+          V: s
+
+      - name: Store packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.arch }}-packages
+          path: bin/packages/${{ matrix.arch }}/action/*.ipk
+
+      - name: Store logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.arch }}-logs
+          path: |
+            logs/
+            PKG-INFO
